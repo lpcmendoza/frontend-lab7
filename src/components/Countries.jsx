@@ -24,12 +24,13 @@ const Countries = () => {
     const cca2 = e.target.value;
     const country = countries.find((country) => country.cca2 === cca2);
     if (country) {
+      setSelectedCountry(country); // Update selected country
       navigate(`/countries/${cca2}`, { state: { data: country } });
     }
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>World Kingdoms</h1>
       <select onChange={handleSelect} defaultValue="">
         <option value="" disabled>
@@ -41,7 +42,7 @@ const Countries = () => {
           </option>
         ))}
       </select>
-      <Outlet />
+      {selectedCountry && <Outlet />} 
     </div>
   );
 };

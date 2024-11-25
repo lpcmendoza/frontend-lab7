@@ -11,7 +11,7 @@ const Details = () => {
   const country = state.data;
 
   return (
-    <div>
+    <div className="innerContainer">
       <h2>{country.name.common}</h2>
       <p><strong>Region:</strong> {country.region}</p>
       <p><strong>Population:</strong> {country.population}</p>
