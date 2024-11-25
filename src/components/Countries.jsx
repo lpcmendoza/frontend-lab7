@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet, Link, useLocation } from "react-router-dom";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null); 
+  const [dropdownValue, setDropdownValue] = useState(""); 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -24,15 +26,27 @@ const Countries = () => {
     const cca2 = e.target.value;
     const country = countries.find((country) => country.cca2 === cca2);
     if (country) {
-      setSelectedCountry(country);
+      setSelectedCountry(country); 
+      setDropdownValue(cca2); 
       navigate(`/countries/${cca2}`, { state: { data: country } });
     }
   };
 
+  useEffect(() => {
+    if (location.pathname === "/" || location.pathname === "/countries") {
+      setSelectedCountry(null);
+      setDropdownValue(""); 
+    }
+  }, [location]);
+
   return (
     <div className="container">
-      <h1>World Kingdoms</h1>
-      <select onChange={handleSelect} defaultValue="">
+      <h1>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          Kingdoms of the World
+        </Link>
+      </h1>
+      <select onChange={handleSelect} value={dropdownValue}>
         <option value="" disabled>
           Select a country
         </option>
