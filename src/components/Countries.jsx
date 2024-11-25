@@ -24,7 +24,7 @@ const Countries = () => {
     const cca2 = e.target.value;
     const country = countries.find((country) => country.cca2 === cca2);
     if (country) {
-      setSelectedCountry(country); // Update selected country
+      setSelectedCountry(country);
       navigate(`/countries/${cca2}`, { state: { data: country } });
     }
   };
